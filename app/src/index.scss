@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css?family=Ropa+Sans');
+
+$desktop-width: 960px;
+$mobile-width: 100%;
+
+body {
+    font-family: 'Helvetica Neue',Arial,sans-serif;
+}
+
+.navbar-wrapper {
+    width: $desktop-width;
+    margin: 0 auto;
+}
+
+.on-mobile {
+    display: none;
+}
+
+.on-web {
+    display: inline-block;
+}
+
+@media only screen and (min-width: $desktop-width) {
+  .navbar-toggle {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: $desktop-width) {
+    #navbar {
+      display: none !important;
+    }
+    .on-mobile, .navbar-toggle {
+        display: block!important;
+    }
+
+    .on-web {
+        display: none;
+    }
+
+    .pipe.on-web {
+        display: none!important;
+    }
+
+    .navbar-wrapper {
+        width: $mobile-width;
+        min-width: 320px;
+    }
+
+    .user-menu {
+        height: 20px;
+        margin-bottom: 20px;
+    }
+
+    .navbar-toggle {
+        float: left;
+    }
+
+    .navbar-toggle .icon-bar {
+        background: #3c3b3b;
+        width: 18px;
+        height: 1px;
+        border-radius: 0;
+        z-index: 10;
+        display: block;
+    }
+
+    .user-menu.on-mobile .link {
+        position: relative;
+        top: 5px;
+        color: #4c4b4c;
+        font-size: 12px;
+        margin-left: 10px;
+    }
+
+    .menu {
+        height: 184px!important;
+    }
+
+    .menu-part.left {
+        width: 50px!important;
+    }
+
+    .menu-part.center {
+        width: calc(100% - 100px)!important;
+    }
+
+    .menu-part.right {
+        width: 100%!important;
+        text-align: center!important;
+    }
+
+    .menu-part.right.text-container {
+        margin-top: 5px !important;
+        padding-right: 0 !important;
+        height: 25px;
+    }
+
+    .menu-part.right.on-mobile {
+        width: 50px!important;
+    }
+}

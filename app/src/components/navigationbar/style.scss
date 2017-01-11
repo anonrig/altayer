@@ -1,0 +1,10 @@
+#navbar {
+  a {
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: #b8a73c;
+  }
+}
