@@ -12,8 +12,8 @@ router
       if (!keyword) {
         return next(new Errors.ClientError('Keyword is missing.'));
       }
-      
-      microserviceKit.amqKit.getQueue('search')
+
+      microserviceKit.amqpKit.getQueue('search')
         .sendEvent('searchKeyword', { keyword: keyword }, { persistent: true })
         .then(results => res.json(results))
         .catch(next);
