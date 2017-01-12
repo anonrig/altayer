@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "bluebird": "^3.4.7",
+    "body-parser": "^1.15.2",
+    "compression": "^1.6.2",
+    "express": "^4.14.0",
+    "helmet": "^3.3.0",
+    "lodash": "^4.17.4",
+    "method-override": "^2.3.7",
+    "microservice-kit": "https://github.com/signalive/microservice-kit",
+    "winston": "^2.3.0"
+  },
+  "scripts": {
+    "start": "node src/app/index.js",
+    "postinstall": "rm -f node_modules/altayer && ln -s ../src/ node_modules/altayer"
+  },
+  "name": "altayer-backend",
+  "version": "1.0.0",
+  "description": "Altayer Backend",
+  "main": "src/index.js",
+  "author": "Yagiz Nizipli",
+  "license": "MIT"
+}
