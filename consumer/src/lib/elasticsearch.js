@@ -101,13 +101,13 @@ class ElasticSearch {
             "should": [
               {
                 "multi_match": {
-                  "query": "a",
+                  "query": keyword,
                   "type": "phrase",
                   "fields": ["sku", "ediRef"]
                 }
               }, {
                 "multi_match": {
-                  "query": "a",
+                  "query": keyword,
                   "fuzziness": 1,
                   "prefix_length": 10,
                   "fields": ["name", "description"]
