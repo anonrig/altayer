@@ -1,4 +1,4 @@
-## Altayer
+## Altayer Frontend Application
 
 ### Dependencies
 
