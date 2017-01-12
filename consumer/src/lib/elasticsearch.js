@@ -122,7 +122,7 @@ class ElasticSearch {
         return i._source;
       });
 
-      return _.sortBy(products, 'isInStock');
+      return _.sortBy(products, 'isInStock').reverse();
     });
   }
 }
