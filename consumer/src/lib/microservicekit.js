@@ -4,12 +4,12 @@ const MicroserviceKit = require('microservice-kit');
 
 
 module.exports = new MicroserviceKit({
-  type: 'whatsapp-core',
+  type: 'consumer',
   amqp: {
     url: 'amqp://localhost:5672',
     queues: [
       {
-        name: 'search',
+        name: 'Search',
         key: 'search',
         options: {durable: true}
       }
