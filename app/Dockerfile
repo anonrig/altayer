@@ -8,4 +8,6 @@ EXPOSE 3000
 
 RUN yarn install --pure-lockfile
 
-CMD ["yarn", "run", "server"]
+RUN yarn run build
+
+CMD ["yarn", "run", "http"]
