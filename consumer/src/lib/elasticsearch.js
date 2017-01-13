@@ -18,7 +18,7 @@ class ElasticSearch {
    */
   connect() {
     this.client = new elasticsearch.Client({
-      host: 'localhost:9200',
+      host: process.env.PRODUCTION ? 'elasticsearch:9200' : 'localhost:9200',
       log: 'trace'
     });
 

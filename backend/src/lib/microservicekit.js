@@ -6,7 +6,7 @@ const MicroserviceKit = require('microservice-kit');
 module.exports = new MicroserviceKit({
   type: 'backend',
   amqp: {
-    url: 'amqp://localhost:5672',
+    url: process.env.PRODUCTION ? 'amqp://rabbitmq:5672' : 'amqp://localhost:5672',
     queues: [
       {
         name: 'Search',
