@@ -1,4 +1,4 @@
-## Altayer HTTP Server
+## Altayer Search Consumer
 
 ### Dependencies
 
