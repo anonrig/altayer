@@ -1,0 +1,61 @@
+version: '2'
+networks:
+  altayer:
+    driver: bridge
+
+services:
+  rabbitmq:
+    image: 'rabbitmq:management'
+    hostname: 'rabbitmq'
+    ports:
+      - '15672:15672'
+      - '5672:5672'
+    networks:
+      - altayer
+
+  elasticsearch:
+    image: elasticsearch:2.4.0
+    ports:
+      - '9200:9200'
+    networks:
+      - altayer
+
+  app:
+    build: ./app
+    environment:
+      PORT: 3000
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    networks:
+      - altayer
+
+  backend:
+    build: ./backend
+    environment:
+      PORT: 4000
+    restart: unless-stopped
+    links:
+      - rabbitmq
+    ports:
+      - '4000:4000'
+    depends_on:
+      - rabbitmq
+    networks:
+      - altayer
+
+  consumer:
+    build: ./consumer
+    environment:
+      PORT: 5000
+    restart: unless-stopped
+    links:
+      - rabbitmq
+      - elasticsearch
+    ports:
+      - '5000:5000'
+    depends_on:
+      - rabbitmq
+      - elasticsearch
+    networks:
+      - altayer
