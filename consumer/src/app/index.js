@@ -18,6 +18,7 @@ class App {
         this.server = require('./http');
 
         return ElasticSearch.connect()
+          .catch(_ => process.exit(0))
           .then(_ => console.info(('ElasticSearch connected.')))
           .then(_ => this.run())
       });
