@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ClickOutside from 'react-click-outside';
-import { debounce } from 'lodash';
+import api from '../../lib/api';
 
 
 class Header extends Component {
@@ -11,9 +11,9 @@ class Header extends Component {
     super(props);
 
     this.state = {
-      keyword: null,
       searchResult: null,
-      showDropdown: false
+      showDropdown: false,
+      showLoading: false
     };
   }
 
@@ -22,7 +22,7 @@ class Header extends Component {
    * Debounce render dropdown method for 200ms.
    */
   componentWillMount() {
-    this.renderDropdown = debounce(this.renderDropdown, 200);
+    // this.renderDropdown = debounce(this.renderDropdown, 200);
   }
 
 
@@ -30,12 +30,30 @@ class Header extends Component {
    * Function is triggered when keyword is changed.
    */
   keywordChanged(event) {
-    let state = {
-      keyword: event.target.value
-    };
+    const keyword = event.target.value;
+    let state = {};
 
-    if (event.target.value.length >= 3)
+    if (keyword.length >= 3) {
       state.showDropdown = true;
+      state.showLoading = true;
+
+      api.killAll()
+      .then(_ => api.search(keyword))
+      .then((response) => {
+        this.setState({
+          searchResult: response,
+          showLoading: false,
+          showDropdown: true
+        });
+      })
+      .catch(_ => {
+        this.setState({
+          searchResult: [],
+          showLoading: false,
+          showDropdown: false
+        });
+      })
+    }
 
     this.setState(state);
   }
@@ -46,25 +64,30 @@ class Header extends Component {
    */
   handleClickOutside() {
     this.setState({
-      showDropdown: false
+      showDropdown: false,
+
     });
   }
 
+
+  /**
+   * Render dropdown.
+   */
   renderDropdown() {
-    const { showDropdown, searchResult, keyword } = this.state;
+    const { showDropdown, searchResult, showLoading } = this.state;
 
     let animation = null;
 
-    if (!keyword || keyword.length < 3 || !showDropdown)
+    if (!showDropdown)
       return null;
 
-    if (!searchResult)
+    if (showLoading)
       animation = (<img src="/images/loading.gif" alt="Loading..." />);
 
     return (
       <div className="search-results">
         {animation}
-        {searchResult ? searchResult.map((r, index) => (<a key={`result-${index}`}>{r}</a>)) : null}
+        {searchResult ? searchResult.map((r, index) => (<a key={`result-${index}`}>{r.name}</a>)) : null}
       </div>
     )
   }
